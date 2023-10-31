@@ -22,31 +22,31 @@ def main():
 
         return {"message": "Hello World"}
 
-    @app.get("/get_temperature")
+    @app.get("/temperature")
     async def get_temperature():
         """Return the temperature."""
 
         return {"temperature": ser.readline()}
 
-    @app.get("/get_humidity")
+    @app.get("/humidity")
     async def get_humidity():
         """Return the humidity."""
 
         return {"humidity": ser.readline()}
 
-    @app.get("/get_pressure")
+    @app.get("/pressure")
     async def get_pressure():
         """Return the pressure."""
 
         return {"pressure": ser.readline()}
 
-    @app.get("/get_altitude")
+    @app.get("/altitude")
     async def get_altitude():
         """Return the altitude."""
 
         return {"altitude": ser.readline()}
 
-    @app.get("/get_light")
+    @app.get("/light")
     async def get_light():
         """Return the light."""
 
