@@ -17,3 +17,11 @@ body {
     text-align: center;
     text-decoration: none;
 }
+
+#IntroParagraph {
+    font-family: "Arial", Gadget, sans-serif;
+    font-size: 14px;
+    color: #000000;
+    text-align: center;
+    text-decoration: none;
+}

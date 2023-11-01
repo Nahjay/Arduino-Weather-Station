@@ -6,35 +6,35 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>  
-    <h1 id="Title"> Weather Information </h1> 
+    <h1 id="Title"> Arduino Weather Information </h1> 
     <p id="IntroParagraph"> This is the web interface for my weather station.
     The data for the web interface is collected from an Arduino. 
     The Arduino collects data from a temperature sensor, a 
     humidity sensor, and a barometric pressure sensor. </p>
 
-    <h2> Temperature </h2>
-    <p> The current temperature is: </p>
+    <h2 id="TemperatureHeading"> Temperature </h2>
+    <p id="TempPar"> The current temperature is: </p>
      <!-- Create a button to obtain the temperature-->
     <button id="getTempbutton">Get Temperature</button>
     <div id="temp_box" class="data-box"> Temperature appears here </div>
 
-    <h2> Humidty </h2>
-    <p> The current temperature is: </p>
+    <h2 id="HumidityHeading"> Humidty </h2>
+    <p id="HumidPar"> The current temperature is: </p>
     <button id="getHumidbutton">Get Humidity</button>
     <div id="humid_box" class="data-box"> Humidity appears here </div>
 
-    <h3> Pressure </h3>
-    <p> The current pressure is: </p>
+    <h3 id="PressureHeading"> Pressure </h3>
+    <p id="PressPar"> The current pressure is: </p>
     <button id="getPressurebutton">Get Pressure</button>
     <div id="pressure_box" class="data-box"> Pressure appears here </div>
 
     <h4> Altitude </h4>
-    <p> The altitude at this location is: </p>
+    <p id="AltPar"> The altitude at this location is: </p>
     <button id="getAltitudebutton">Get Altitude</button>
     <div id="altitude_box" class="data-box"> Altitude appears here </div>
 
     <h5> Light </h5>
-    <p> The current amount of visible light in the air is: </p>
+    <p id="LightPar"> The current amount of visible light in the air is: </p>
     <button id="getLightbutton">Get Light</button>
     <div id="light_box" class="data-box"> Light appears here </div>
 
