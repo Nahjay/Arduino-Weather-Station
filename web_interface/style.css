@@ -1,7 +1,7 @@
 /* CSS used for the Arduino Weather Station Web Interface */
 
 body {
-    background-color: #f0f0f0;
+    background-color: rgb(61, 61, 61);
     font-family: "Arial", Gadget, sans-serif;
     font-size: 14px;
     color: #000000;
