@@ -35,6 +35,14 @@ async fn index() -> impl Responder {
     HttpResponse::Ok().json(response)
 }
 
+#[get("/weather")]
+async fn weather() -> impl Responder {
+    let response = Response {
+        message: " All Weather Information endpoint".to_string(),
+    };
+    HttpResponse::Ok().json(response)
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     /* Instantiate Logger */
