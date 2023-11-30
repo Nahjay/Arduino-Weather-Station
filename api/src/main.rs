@@ -43,6 +43,54 @@ async fn weather() -> impl Responder {
     HttpResponse::Ok().json(response)
 }
 
+#[get("/weather/temperature")]
+async fn temperature() -> impl Responder {
+    let response = Response {
+        message: "Temperature endpoint".to_string(),
+    };
+    HttpResponse::Ok().json(response)
+}
+
+#[get("/weather/humidity")]
+async fn humidity() -> impl Responder {
+    let response = Response {
+        message: "Humidity endpoint".to_string(),
+    };
+    HttpResponse::Ok().json(response)
+}
+
+#[get("/weather/pressure")]
+async fn pressure() -> impl Responder {
+    let response = Response {
+        message: "Pressure endpoint".to_string(),
+    };
+    HttpResponse::Ok().json(response)
+}
+
+#[get("/weather/altitude")]
+async fn altitude() -> impl Responder {
+    let response = Response {
+        message: "Altitude endpoint".to_string(),
+    };
+    HttpResponse::Ok().json(response)
+}
+
+#[get("/weather/light")]
+async fn light() -> impl Responder {
+    let response = Response {
+        message: "Light endpoint".to_string(),
+    };
+    HttpResponse::Ok().json(response)
+}
+
+#[get("/weather/time")]
+async fn time() -> impl Responder {
+    let response = Response {
+        message: "Time endpoint".to_string(),
+    };
+    HttpResponse::Ok().json(response)
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     /* Instantiate Logger */
@@ -69,6 +117,13 @@ async fn main() -> std::io::Result<()> {
             // .route("/", web::get().to(HttpResponse::Ok))
             .service(healthcheck)
             .service(index)
+            .service(weather)
+            .service(temperature)
+            .service(humidity)
+            .service(pressure)
+            .service(altitude)
+            .service(light)
+            .service(time)
             .default_service(web::route().to(not_found))
     })
     .bind(("127.0.0.1", 8084))?
