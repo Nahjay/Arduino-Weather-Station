@@ -11,6 +11,7 @@ use std::fs::File;
 pub struct Response {
     pub message: String,
 }
+
 async fn main() -> std::io::Result<()> {
     /* Instantiate Logger */
     match CombinedLogger::init(vec![
@@ -36,11 +37,6 @@ async fn main() -> std::io::Result<()> {
             // .route("/", web::get().to(HttpResponse::Ok))
             .service(healthcheck)
             .service(index)
-            .service(date_time)
-            .service(utc_time)
-            .service(altitude)
-            .service(lat_long)
-            .service(all_serial_data)
             .default_service(web::route().to(not_found))
     })
     .bind(("127.0.0.1", 8084))?
