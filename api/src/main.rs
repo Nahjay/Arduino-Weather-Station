@@ -1,6 +1,6 @@
 /* Create the API for my Arduino Weather Station that will store information at Various Endpoints */
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 use simplelog::{CombinedLogger, TermLogger, WriteLogger};
 use std::fs::File;
 
@@ -12,6 +12,23 @@ pub struct Response {
     pub message: String,
 }
 
+// Creates a handler function that responds if the endpoint is not found in the server
+async fn not_found() -> Result<HttpResponse, actix_web::Error> {
+    let response = Response {
+        message: "Resource not found".to_string(),
+    };
+    Ok(HttpResponse::NotFound().json(response))
+}
+
+// Creates a handler function for the /health endpoint
+#[get("/health")]
+async fn healthcheck() -> impl Responder {
+    let response = Response {
+        message: "Everything is working fine".to_string(),
+    };
+    HttpResponse::Ok().json(response)
+}
+#[actix_web::main]
 async fn main() -> std::io::Result<()> {
     /* Instantiate Logger */
     match CombinedLogger::init(vec![
