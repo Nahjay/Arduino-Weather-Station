@@ -1,6 +1,7 @@
 /* Create the API for my Arduino Weather Station that will store information at Various Endpoints */
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use log::{debug, error, warn};
+use serde::Deserialize;
 use serde::Serialize;
 use simplelog::{CombinedLogger, TermLogger, WriteLogger};
 use std::fs::File;
@@ -10,8 +11,7 @@ use std::fs::File;
 pub struct Response {
     pub message: String,
 }
-
-#[derive(Serialize)]
+#[derive(Deserialize, Debug)]
 pub struct Temperature {
     pub temperature: f32,
 }
@@ -110,6 +110,13 @@ async fn post_weather() -> impl Responder {
 }
 
 #[post("/weather/temperature")]
+async fn receive_sensor_data(sensor_data: web::Json<Temperature>) -> impl Responder {
+    // Print the received sensor data to the console
+    println!("Received sensor data: {:?}", sensor_data);
+
+    "Sensor data received successfully"
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     /* Instantiate Logger */
