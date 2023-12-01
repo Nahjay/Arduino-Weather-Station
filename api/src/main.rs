@@ -11,6 +11,16 @@ pub struct Response {
     pub message: String,
 }
 
+#[derive(Serialize)]
+pub struct Temperature {
+    pub temperature: f32,
+}
+
+#[derive(Serialize)]
+pub struct Humidity {
+    pub humidity: f32,
+}
+
 // Creates a handler function that responds if the endpoint is not found in the server
 async fn not_found() -> Result<HttpResponse, actix_web::Error> {
     let response = Response {
@@ -99,6 +109,7 @@ async fn post_weather() -> impl Responder {
     HttpResponse::Ok().json(response)
 }
 
+#[post("/weather/temperature")]
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     /* Instantiate Logger */
@@ -132,6 +143,7 @@ async fn main() -> std::io::Result<()> {
             .service(altitude)
             .service(light)
             .service(time)
+            .service(post_weather)
             .default_service(web::route().to(not_found))
     })
     .bind(("127.0.0.1", 8084))?
