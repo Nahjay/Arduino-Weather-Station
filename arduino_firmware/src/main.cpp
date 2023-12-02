@@ -2,9 +2,10 @@
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
 #include <Adafruit_BMP280.h>
+#include <RTClib.h>
 
 Adafruit_BMP280 bmp; // I2C
-
+RTC_DS3231 rtc;
 
 #define TYPE DHT11
 int DHTPIN = 2;
@@ -19,6 +20,10 @@ void setup() {
   dht.begin();
   if (!bmp.begin(0x76)) {
     Serial.println(F("Could not find a valid BMP280 sensor, check wiring!"));
+    while (1);
+  }
+  if (! rtc.begin()) {
+    Serial.println("Couldn't find RTC");
     while (1);
   }
   delay(setTime);
@@ -53,6 +58,21 @@ void loop() {
     Serial.print("Approx altitude = ");
     Serial.print(bmp.readAltitude(1013.25)); // this should be adjusted to your local forcase
     Serial.println(" m");
+    Serial.println();
+
+    DateTime now = rtc.now();
+
+    Serial.print(now.year(), DEC);
+    Serial.print('/');
+    Serial.print(now.month(), DEC);
+    Serial.print('/');
+    Serial.print(now.day(), DEC);
+    Serial.print(" ");
+    Serial.print(now.hour(), DEC);
+    Serial.print(':');
+    Serial.print(now.minute(), DEC);
+    Serial.print(':');
+    Serial.print(now.second(), DEC);
     Serial.println();
     delay(setTime); // Delay for 5 seconds.
 
