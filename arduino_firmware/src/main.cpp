@@ -17,7 +17,7 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   dht.begin();
-  if (!bmp.begin()) {
+  if (!bmp.begin(0x76)) {
     Serial.println(F("Could not find a valid BMP280 sensor, check wiring!"));
     while (1);
   }
@@ -55,6 +55,6 @@ void loop() {
     Serial.println(" m");
     Serial.println();
     delay(setTime); // Delay for 5 seconds.
-    
+
 }
 
