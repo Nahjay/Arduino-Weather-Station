@@ -1,6 +1,10 @@
 #include <Arduino.h>
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
+#include <Adafruit_BMP280.h>
+
+Adafruit_BMP280 bmp; // I2C
+
 
 #define TYPE DHT11
 int DHTPIN = 2;
@@ -13,6 +17,10 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   dht.begin();
+  if (!bmp.begin()) {
+    Serial.println(F("Could not find a valid BMP280 sensor, check wiring!"));
+    while (1);
+  }
   delay(setTime);
 }
 
@@ -35,5 +43,18 @@ void loop() {
     Serial.print(" °C, Humidity: ");
     Serial.print(humidity);
     Serial.println(" %");
+
+    Serial.print("Temperature = ");
+    Serial.print(bmp.readTemperature());
+    Serial.println(" *C");
+    Serial.print("Pressure = ");
+    Serial.print(bmp.readPressure());
+    Serial.println(" Pa");
+    Serial.print("Approx altitude = ");
+    Serial.print(bmp.readAltitude(1013.25)); // this should be adjusted to your local forcase
+    Serial.println(" m");
+    Serial.println();
+    delay(setTime); // Delay for 5 seconds.
+    
 }
 
