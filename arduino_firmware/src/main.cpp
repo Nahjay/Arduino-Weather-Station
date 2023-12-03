@@ -15,11 +15,15 @@ DHT dht(DHTPIN, TYPE);
 float temperature = 0;
 float humidity = 0;
 int setTime = 5000;
+BH1750 lightMeter(0x23);
+
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   dht.begin();
+  Wire.begin();
+  lightMeter.begin(BH1750::CONTINUOUS_HIGH_RES_MODE);
   if (!bmp.begin(0x76)) {
     Serial.println(F("Could not find a valid BMP280 sensor, check wiring!"));
     while (1);
@@ -35,7 +39,15 @@ void setup() {
 void loop() {
     // put your main code here, to run repeatedly:
 
+
+
     delay(2000);  // Delay for 2 seconds between readings
+
+
+    uint16_t lux = lightMeter.readLightLevel();
+    Serial.print("Light: ");
+    Serial.print(lux);
+    Serial.println(" lx");
 
     temperature = dht.readTemperature();
     humidity = dht.readHumidity();
