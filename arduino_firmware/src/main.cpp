@@ -3,6 +3,8 @@
 #include <DHT.h>
 #include <Adafruit_BMP280.h>
 #include <RTClib.h>
+#include <Wire.h>
+#include <BH1750.h>
 
 Adafruit_BMP280 bmp; // I2C
 RTC_DS3231 rtc;
