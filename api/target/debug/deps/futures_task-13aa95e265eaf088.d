@@ -1,0 +1,11 @@
+/home/atomi/Documents/Projects/Arduino-Weather-Station/api/target/debug/deps/futures_task-13aa95e265eaf088.rmeta: /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/lib.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/spawn.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/arc_wake.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/waker.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/waker_ref.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/future_obj.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/noop_waker.rs
+
+/home/atomi/Documents/Projects/Arduino-Weather-Station/api/target/debug/deps/futures_task-13aa95e265eaf088.d: /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/lib.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/spawn.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/arc_wake.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/waker.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/waker_ref.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/future_obj.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/noop_waker.rs
+
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/lib.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/spawn.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/arc_wake.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/waker.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/waker_ref.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/future_obj.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-task-0.3.29/src/noop_waker.rs:

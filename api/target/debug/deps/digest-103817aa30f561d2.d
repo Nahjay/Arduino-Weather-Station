@@ -1,0 +1,11 @@
+/home/atomi/Documents/Projects/Arduino-Weather-Station/api/target/debug/deps/digest-103817aa30f561d2.rmeta: /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/lib.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api/ct_variable.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api/rt_variable.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api/wrapper.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api/xof_reader.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/digest.rs
+
+/home/atomi/Documents/Projects/Arduino-Weather-Station/api/target/debug/deps/digest-103817aa30f561d2.d: /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/lib.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api/ct_variable.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api/rt_variable.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api/wrapper.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api/xof_reader.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/digest.rs
+
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/lib.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api/ct_variable.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api/rt_variable.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api/wrapper.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/core_api/xof_reader.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/digest-0.10.7/src/digest.rs:

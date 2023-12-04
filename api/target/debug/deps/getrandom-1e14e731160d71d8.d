@@ -1,0 +1,11 @@
+/home/atomi/Documents/Projects/Arduino-Weather-Station/api/target/debug/deps/getrandom-1e14e731160d71d8.rmeta: /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/lib.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/error.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/util.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/error_impls.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/util_libc.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/use_file.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/linux_android.rs
+
+/home/atomi/Documents/Projects/Arduino-Weather-Station/api/target/debug/deps/getrandom-1e14e731160d71d8.d: /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/lib.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/error.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/util.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/error_impls.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/util_libc.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/use_file.rs /home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/linux_android.rs
+
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/lib.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/error.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/util.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/error_impls.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/util_libc.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/use_file.rs:
+/home/atomi/.cargo/registry/src/index.crates.io-6f17d22bba15001f/getrandom-0.2.11/src/linux_android.rs:
