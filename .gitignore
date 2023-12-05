@@ -11,3 +11,4 @@ venv/
 .vscode/launch.json
 .vscode/ipch
 *.json
+target/
