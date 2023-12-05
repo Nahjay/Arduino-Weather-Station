@@ -1,0 +1,132 @@
+/* CSS used for the Arduino Weather Station Web Interface */
+
+body {
+    background-color: rgb(61, 61, 61);
+    font-family: "Arial", Gadget, sans-serif;
+    grid-template-columns: repeat(3, 1fr);
+    font-size: 14px;
+    color: #000000;
+    margin: 0px;
+    padding: 20px;
+    gap: 20px;
+    box-sizing: border-box
+}
+
+
+#Title {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: coral;
+    text-align: center;
+    text-decoration: none;
+}
+
+#IntroParagraph {
+    font-family: "Arial", Gadget, sans-serif;
+    font-size: 14px;
+    color: #000000;
+    text-align: center;
+    text-decoration: none;
+}
+
+#TemperatureHeading {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: coral;
+    text-align: center;
+    text-decoration: none;
+}
+
+#HumidityHeading {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: coral;
+    text-align: center;
+    text-decoration: none;
+}
+
+#PressureHeading {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: coral;
+    text-align: center;
+    text-decoration: none;
+}
+
+#AltitudeHeading {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: coral;
+    text-align: center;
+    text-decoration: none;
+}
+
+#LightHeading {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: coral;
+    text-align: center;
+    text-decoration: none;
+}
+
+#ForecastHeading {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: coral;
+    text-align: center;
+    text-decoration: none;
+}
+
+#TimeHeading {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: coral;
+    text-align: center;
+    text-decoration: none;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.data-box {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.humidty-container {
+    text-align: center;
+
+}
+
+.temp-container {
+    text-align: center;
+}
+
+.pressure-container {
+    text-align: center;
+}
+
+.altitude-container {
+    text-align: center;
+}
+
+.light-container {
+    text-align: center;
+}
+
+.time-container {
+    text-align: center;
+}

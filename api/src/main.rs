@@ -1,24 +1,28 @@
 /* Create the API for my Arduino Weather Station that will store information at Various Endpoints */
+use actix_files::Files;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use log::{debug, error, warn};
-use serde::Deserialize;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use simplelog::{CombinedLogger, TermLogger, WriteLogger};
 use std::fs::File;
+use std::sync::{Arc, Mutex};
 
 // Create a struct to hold the response data
 #[derive(Serialize)]
 pub struct Response {
     pub message: String,
 }
-#[derive(Deserialize, Debug)]
-pub struct Temperature {
-    pub temperature: f32,
+
+#[derive(Default)]
+struct AppState {
+    weather_data: Mutex<Option<WeatherData>>,
 }
 
-#[derive(Serialize)]
-pub struct Humidity {
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct WeatherData {
+    pub temperature: f32,
     pub humidity: f32,
+    // Add other fields as needed
 }
 
 // Creates a handler function that responds if the endpoint is not found in the server
@@ -46,11 +50,14 @@ async fn index() -> impl Responder {
 }
 
 #[get("/weather")]
-async fn weather() -> impl Responder {
-    let response = Response {
-        message: " All Weather Information endpoint".to_string(),
-    };
-    HttpResponse::Ok().json(response)
+async fn weather(state: web::Data<Arc<AppState>>) -> impl Responder {
+    let app_state = state.weather_data.lock().unwrap();
+    match &*app_state {
+        Some(data) => HttpResponse::Ok().json(data),
+        None => HttpResponse::NotFound().json(Response {
+            message: "Weather data not available".to_string(),
+        }),
+    }
 }
 
 #[get("/weather/temperature")]
@@ -101,20 +108,20 @@ async fn time() -> impl Responder {
     HttpResponse::Ok().json(response)
 }
 
-#[post("/weather")]
-async fn post_weather() -> impl Responder {
-    let response = Response {
-        message: "Post Weather Information endpoint".to_string(),
-    };
-    HttpResponse::Ok().json(response)
-}
+#[post("/post_weather")]
+async fn post_weather(
+    data: web::Json<WeatherData>,
+    state: web::Data<Arc<AppState>>,
+) -> impl Responder {
+    let mut app_state = state.weather_data.lock().unwrap();
+    *app_state = Some(data.0.clone());
 
-#[post("/weather/temperature")]
-async fn receive_sensor_data(sensor_data: web::Json<Temperature>) -> impl Responder {
-    // Print the received sensor data to the console
-    println!("Received sensor data: {:?}", sensor_data);
+    // Add a debug statement to check if the data is being stored
+    debug!("Weather data stored: {:?}", data);
 
-    "Sensor data received successfully"
+    HttpResponse::Ok().json(Response {
+        message: "Weather data stored successfully".to_string(),
+    })
 }
 
 #[actix_web::main]
@@ -130,17 +137,20 @@ async fn main() -> std::io::Result<()> {
         WriteLogger::new(
             log::LevelFilter::Debug,
             simplelog::Config::default(),
-            File::create("gps_rs.log").unwrap(),
+            File::create("weather_station_rs.log").unwrap(),
         ),
     ]) {
         Ok(_) => debug!("Logger initialized"),
         Err(e) => debug!("Logger failed to initialize: {}", e),
     }
 
+    let app_state = Arc::new(AppState::default());
+
     // Create the Server and bind it to port 8084
-    HttpServer::new(|| {
+    HttpServer::new(move || {
         App::new()
             // .route("/", web::get().to(HttpResponse::Ok))
+            .app_data(web::Data::new(app_state.clone()))
             .service(healthcheck)
             .service(index)
             .service(weather)
@@ -152,6 +162,13 @@ async fn main() -> std::io::Result<()> {
             .service(time)
             .service(post_weather)
             .default_service(web::route().to(not_found))
+            .service(
+                Files::new(
+                    "/",
+                    "~/Documents/Projects/Ardunio-Weather-Stattion/web_interface/static/",
+                )
+                .index_file("index.html"),
+            )
     })
     .bind(("127.0.0.1", 8084))?
     .run()

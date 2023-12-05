@@ -15,3 +15,4 @@ features = "0.10.0"
 derive = "1.0.0"
 chrono = { version = "0.4.31", features = ["serde"] }
 uuid = { version = "1.6.1", features = ["v4"] }
+actix-files = "0.6.2"
