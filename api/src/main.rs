@@ -1,4 +1,5 @@
 /* Create the API for my Arduino Weather Station that will store information at Various Endpoints */
+use actix_files::Files;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use log::{debug, error, warn};
 use serde::{Deserialize, Serialize};
@@ -161,6 +162,7 @@ async fn main() -> std::io::Result<()> {
             .service(time)
             .service(post_weather)
             .default_service(web::route().to(not_found))
+            .service(Files::new("/", "./static/").index_file("index.html"))
     })
     .bind(("127.0.0.1", 8084))?
     .run()
