@@ -5,7 +5,6 @@
 #include <vector>
 
 using namespace std;
-using std::vector;
 
 
 const char *ssid = "Family bee";
@@ -19,35 +18,57 @@ void setup()
 {
   // put your setup code here, to run once:
   // Begin the Serial at 9600 Baud
-  Serial.begin(9600);
-  
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
-
-  // Initialize the WiFi connection
+  WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
 
+  Serial.begin(9600);
+
   while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    WiFi.begin(ssid, password);
+    delay(500);
     Serial.println("Connecting to WiFi..");
   }
 
-  Serial.println("Connected to the WiFi network");
-}
+  Serial.println("Connected to ");
+  Serial.println(WiFi.SSID());
+  Serial.print("IP address:\t");
+  Serial.println(WiFi.localIP());
+  }
+  
+  
+
+  // int numSsid = WiFi.scanNetworks();
+
+  // if (numSsid == -1) {
+  //   Serial.println("Couldn't get a wifi connection");
+  // } 
+  // else {
+  //   Serial.print("Number of available networks:");
+  //   Serial.println(numSsid);      
+  // }
+
+
+  // Initialize the WiFi connection
+
+  // while (WiFi.status() != WL_CONNECTED) {
+  //   delay(10000);
+  //   WiFi.begin(ssid, password);
+  //   Serial.println("Connecting to WiFi..");
+  // }
+
+  
+
 
 void loop()
 {
   // Begin Loop
 
     // Check WiFi connection status
-  if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("Connected to the WiFi network");
-  }
+  // if (WiFi.status() == WL_CONNECTED) {
+  //   Serial.println("Connected to the WiFi network");
+  // }
 
 
-  // Check if there is any data available in the Serial and store it in the buffer
+  // // Check if there is any data available in the Serial and store it in the buffer
   if (Serial.available() > 0) {
     String data = Serial.readString();
   
@@ -72,7 +93,28 @@ void loop()
 
 
 
-  }
+  // }
+  //  int numSsid = WiFi.scanNetworks();
+
+  // if (numSsid == -1) {
+  //   Serial.println("Couldn't get a wifi connection");
+  // } 
+  // else {
+  //   Serial.print("Number of available networks:");
+  //   Serial.println(numSsid);      
+  // }
+
+  // for (int i = 0; i < numSsid; i++) {
+  //   Serial.print("Network name: ");
+  //   Serial.println(WiFi.SSID(i));
+  //   Serial.print("Signal strength: ");
+  //   Serial.println(WiFi.RSSI(i));
+  //   Serial.print("MAC address: ");
+  //   Serial.println(WiFi.BSSIDstr(i));
+  //   Serial.println("-----------------------");
+  // }
+
 
   delay(100);
+}
 }
