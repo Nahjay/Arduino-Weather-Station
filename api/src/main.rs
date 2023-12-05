@@ -162,7 +162,13 @@ async fn main() -> std::io::Result<()> {
             .service(time)
             .service(post_weather)
             .default_service(web::route().to(not_found))
-            .service(Files::new("/", "./static/").index_file("index.html"))
+            .service(
+                Files::new(
+                    "/",
+                    "~/Documents/Projects/Ardunio-Weather-Stattion/web_interface/static/",
+                )
+                .index_file("index.html"),
+            )
     })
     .bind(("127.0.0.1", 8084))?
     .run()
