@@ -8,15 +8,12 @@ using namespace std;
 using std::vector;
 
 
-// SoftwareSerial mySerial(D6, D5); // RX, TX
 const char *ssid = "Family bee";
 const char *password = "Kablitv22";
-const char *host = "http://localhost:8084/api/temperature";
+const char *host = "http://localhost:8084/weather";
 HTTPClient http;
 WiFiClient client;
 
-char buffer[20];
-// int index = 0;
 
 void setup()
 {
@@ -28,12 +25,14 @@ void setup()
     ; // wait for serial port to connect. Needed for native USB port only
   }
 
-  // WiFi.begin(ssid, password);
+  // Initialize the WiFi connection
+  WiFi.begin(ssid, password);
 
-  // while (WiFi.status() != WL_CONNECTED) {
-  //   delay(500);
-  //   Serial.println("Connecting to WiFi..");
-  // }
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    WiFi.begin(ssid, password);
+    Serial.println("Connecting to WiFi..");
+  }
 
   Serial.println("Connected to the WiFi network");
 }
@@ -41,6 +40,12 @@ void setup()
 void loop()
 {
   // Begin Loop
+
+    // Check WiFi connection status
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("Connected to the WiFi network");
+  }
+
 
   // Check if there is any data available in the Serial and store it in the buffer
   if (Serial.available() > 0) {
@@ -53,10 +58,13 @@ void loop()
       Serial.println(data);
 
       // Send the data to the server
-      http.begin("http://localhost:3000/api/temperature");
+      http.begin(client, host);
       http.addHeader("Content-Type", "application/json");
       int httpCode = http.POST(data);
-
+      String payload = http.getString();
+      Serial.println(httpCode);
+      Serial.println(payload);
+      http.end();
     }
 
     
@@ -64,12 +72,6 @@ void loop()
 
 
 
-  }
-
-
-  // Check WiFi connection status
-  if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("Connected to the WiFi network");
   }
 
   delay(100);
