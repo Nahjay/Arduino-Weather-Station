@@ -64,9 +64,9 @@ void loop() {
     Serial.print(humidity);
     Serial.println(" %");
 
-    Serial.print("Temperature = ");
-    Serial.print(bmp.readTemperature());
-    Serial.println(" *C");
+    // Serial.print("Temperature = ");
+    // Serial.print(bmp.readTemperature());
+    // Serial.println(" *C");
     Serial.print("Pressure = ");
     Serial.print(bmp.readPressure());
     Serial.println(" Pa");
