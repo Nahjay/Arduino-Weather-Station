@@ -104,7 +104,7 @@ async fn main() -> std::io::Result<()> {
         WriteLogger::new(
             log::LevelFilter::Debug,
             simplelog::Config::default(),
-            File::create("gps_rs.log").unwrap(),
+            File::create("weather_station_rs.log").unwrap(),
         ),
     ]) {
         Ok(_) => debug!("Logger initialized"),
