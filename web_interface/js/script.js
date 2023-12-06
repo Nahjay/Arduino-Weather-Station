@@ -21,9 +21,7 @@ buttons.forEach(button => {
 function fetchData(endpoint, resultBoxId) {
     fetch(`http://localhost:8084${endpoint}`, {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+
     })
         .then(response => {
             if (!response.ok) {
