@@ -152,7 +152,7 @@ async fn main() -> std::io::Result<()> {
             // .route("/", web::get().to(HttpResponse::Ok))
             .app_data(web::Data::new(app_state.clone()))
             .service(healthcheck)
-            .service(index)
+            // .service(index)
             .service(weather)
             .service(temperature)
             .service(humidity)
@@ -162,13 +162,8 @@ async fn main() -> std::io::Result<()> {
             .service(time)
             .service(post_weather)
             .default_service(web::route().to(not_found))
-            .service(
-                Files::new(
-                    "/",
-                    "~/Documents/Projects/Ardunio-Weather-Stattion/web_interface/static/",
-                )
-                .index_file("index.html"),
-            )
+            // Serve static files from the static directory
+            .service(Files::new("/", "../web_interface").index_file("static/index.html"))
     })
     .bind(("127.0.0.1", 8084))?
     .run()

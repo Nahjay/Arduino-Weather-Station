@@ -93,6 +93,15 @@ body {
     text-decoration: none;
 }
 
+#AllWeatherHeading {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -128,5 +137,9 @@ body {
 }
 
 .time-container {
+    text-align: center;
+}
+
+.all-weather-container {
     text-align: center;
 }
