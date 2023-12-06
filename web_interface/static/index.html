@@ -5,8 +5,6 @@
         <!-- Link to the CSS file -->
         <link rel="stylesheet" type="text/css"
             href="/web_interface/css/style.css">
-        <!-- Link to the JavaScript file -->
-        <script src="/web_interface/js/script.js"></script>
     </head>
     <body>
         <h1 id="Title"> Arduino Weather Information </h1>
@@ -27,7 +25,7 @@
                 <h2 id="TemperatureHeading"> Temperature </h2>
                 <p id="TempPar"> The current temperature is: </p>
                 <button id="/weather/temperature" type="button">Get Temperature</button>
-                <div id="temp_box" class="data-box">
+                <div id="_weather_temperature_box" class="data-box">
                 </div>
             </div>
 
@@ -36,7 +34,7 @@
                 <h2 id="HumidityHeading"> Humidity </h2>
                 <p id="HumidPar"> The current humidity is: </p>
                 <button id="/weather/humidity" type="button"> Get Humidity</button>
-                <div id="humid_box" class="data-box">
+                <div id="_weather_humidity_box" class="data-box">
                 </div>
             </div>
 
@@ -45,7 +43,7 @@
                 <h2 id="PressureHeading"> Pressure </h2>
                 <p id="PressPar"> The current pressure is: </p>
                 <button id="/weather/pressure" type="button">Get Pressure</button>
-                <div id="pressure_box" class="data-box">
+                <div id="_weather_pressure_box" class="data-box">
                 </div>
             </div>
 
@@ -54,7 +52,7 @@
                 <h2 id="AltitudeHeading"> Altitude </h2>
                 <p id="AltPar"> The altitude at this location is: </p>
                 <button id="/weather/altitude" type="button">Get Altitude</button>
-                <div id="altitude_box" class="data-box">
+                <div id="_weather_altitude_box" class="data-box">
                 </div>
             </div>
 
@@ -65,7 +63,7 @@
                     is:
                 </p>
                 <button id="/weather/light" type="button">Get Light</button>
-                <div id="light_box" class="data-box"> </div>
+                <div id="_weather_light_box" class="data-box"> </div>
             </div>
 
             <!-- Time Heading and Info -->
@@ -73,7 +71,7 @@
                 <h2 id="TimeHeading"> Current Time</h2>
                 <p id="TimePar"> The current time is: </p>
                 <button id="/weather/time" type="button">Get Time</button>
-                <div id="time_box" class="data-box"> </div>
+                <div id="_weather_time_box" class="data-box"> </div>
             </div>
         </div>
 
@@ -82,8 +80,10 @@
             <h2 id="AllWeatherHeading"> All Weather Information </h2>
             <p id="AllWeatherPar"> All of the weather information is: </p>
             <button id="/weather" type="button">Get All Weather</button>
-            <div id="all_weather_box" class="data-box">
+            <div id="_weather_box" class="data-box">
             </div>
         </div>
+        <!-- Link to the JavaScript file -->
+        <script src="/web_interface/js/script.js"></script>
     </body>
 </html>

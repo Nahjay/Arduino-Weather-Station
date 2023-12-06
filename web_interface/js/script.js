@@ -14,8 +14,9 @@ buttons.forEach(button => {
     button.addEventListener('click', () => {
         const endpoint = button.id;
         const resultBoxId = `${endpoint.replace(/\//g, '_')}_box`;
-        fetchData(endpoint, resultBoxId);
+        // fetchData(endpoint, resultBoxId);
         console.log(endpoint);
         console.log(resultBoxId);
     });
 });
+
