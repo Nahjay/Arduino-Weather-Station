@@ -19,7 +19,7 @@ buttons.forEach(button => {
 });
 
 function fetchData(endpoint, resultBoxId) {
-    fetch(`https://localhost:8084${endpoint}`, {
+    fetch(`http://localhost:8084${endpoint}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

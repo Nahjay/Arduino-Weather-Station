@@ -8,12 +8,6 @@ use simplelog::{CombinedLogger, TermLogger, WriteLogger};
 use std::fs::File;
 use std::sync::{Arc, Mutex};
 
-const CORS: Cors = Cors::default()
-    .allow_any_origin() // Replace with specific origins if needed
-    .allow_any_method() // Replace with specific methods if needed
-    .allow_any_header()
-    .max_age(3600);
-
 // Create a struct to hold the response data
 #[derive(Serialize)]
 pub struct Response {
@@ -155,8 +149,13 @@ async fn main() -> std::io::Result<()> {
 
     // Create the Server and bind it to port 8084
     HttpServer::new(move || {
+        let cors = Cors::default()
+            .allow_any_origin()
+            .allow_any_method()
+            .allow_any_header();
+
         App::new()
-            .wrap(CORS)
+            .wrap(cors)
             .app_data(web::Data::new(app_state.clone()))
             .service(healthcheck)
             .service(weather)
