@@ -3,6 +3,7 @@
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WiFi.h>
 #include <vector>
+#include <ArduinoJson.h>
 
 using namespace std;
 
@@ -40,22 +41,27 @@ void loop() {
 
   // Check if the WiFi is connected
   if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("Cpnnected to the WiFi network");
-  }
-
-  // // Check if there is any data available in the Serial and store it in the buffer
-  if (Serial.available() > 0) {
-    String data = Serial.readString();
+    Serial.println("Connected to the WiFi network");
   
 
-    // Check if the data is not empty and if
-    if (data != "") {
-      // Print the data
-      Serial.println(data);
-    }
+    // // Check if there is any data available in the Serial and store it in the buffer
+    if (Serial.available() > 0) {
+      String data = Serial.readString();
+    
 
+      // Check if the data is not empty and if
+      if (data != "") {
+        // Print the data
+        Serial.println(data);
+      }
+
+    }
+  }
+  else {
+    Serial.println("Error in WiFi connection");
+  }
     
 
   delay(1000);
 }
-}
+
