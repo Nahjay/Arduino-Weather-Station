@@ -96,6 +96,7 @@ void loop() {
     Serial.print(now.minute(), DEC);
     Serial.print(':');
     Serial.print(now.second(), DEC);
+    Serial.println();
     delay(setTime); // Delay for 5 seconds.
 }
 
