@@ -163,7 +163,7 @@ async fn main() -> std::io::Result<()> {
             .service(post_weather)
             .default_service(web::route().to(not_found))
             // Serve static files from the static directory
-            .service(Files::new("/", "../web_interface/static").index_file("index.html"))
+            .service(Files::new("/", "../web_interface").index_file("static/index.html"))
     })
     .bind(("127.0.0.1", 8084))?
     .run()
