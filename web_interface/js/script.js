@@ -6,3 +6,16 @@
 // Function to get the current temperature from the server and display it on the web interface
 
 
+// Get all buttons within the web interface
+const buttons = document.querySelectorAll('button');
+
+// Add click event listener to all buttons
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        const endpoint = button.id;
+        const resultBoxId = `${endpoint.replace(/\//g, '_')}_box`;
+        fetchData(endpoint, resultBoxId);
+        console.log(endpoint);
+        console.log(resultBoxId);
+    });
+});
