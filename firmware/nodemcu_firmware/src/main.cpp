@@ -14,8 +14,7 @@ HTTPClient http;
 WiFiClient client;
 
 
-void setup()
-{
+void setup() {
   // put your setup code here, to run once:
   // Begin the Serial at 9600 Baud
   WiFi.mode(WIFI_STA);
@@ -32,34 +31,10 @@ void setup()
   Serial.println(WiFi.SSID());
   Serial.print("IP address:\t");
   Serial.println(WiFi.localIP());
-  }
-  
-  
-
-  // int numSsid = WiFi.scanNetworks();
-
-  // if (numSsid == -1) {
-  //   Serial.println("Couldn't get a wifi connection");
-  // } 
-  // else {
-  //   Serial.print("Number of available networks:");
-  //   Serial.println(numSsid);      
-  // }
+}
 
 
-  // Initialize the WiFi connection
-
-  // while (WiFi.status() != WL_CONNECTED) {
-  //   delay(10000);
-  //   WiFi.begin(ssid, password);
-  //   Serial.println("Connecting to WiFi..");
-  // }
-
-  
-
-
-void loop()
-{
+void loop() {
   // Begin Loop
 
 
@@ -77,38 +52,10 @@ void loop()
     if (data != "") {
       // Print the data
       Serial.println(data);
-
-      // Send the data to the server
-      
     }
 
     
 
-
-
-
-  // }
-  //  int numSsid = WiFi.scanNetworks();
-
-  // if (numSsid == -1) {
-  //   Serial.println("Couldn't get a wifi connection");
-  // } 
-  // else {
-  //   Serial.print("Number of available networks:");
-  //   Serial.println(numSsid);      
-  // }
-
-  // for (int i = 0; i < numSsid; i++) {
-  //   Serial.print("Network name: ");
-  //   Serial.println(WiFi.SSID(i));
-  //   Serial.print("Signal strength: ");
-  //   Serial.println(WiFi.RSSI(i));
-  //   Serial.print("MAC address: ");
-  //   Serial.println(WiFi.BSSIDstr(i));
-  //   Serial.println("-----------------------");
-  // }
-
-
-  delay(100);
+  delay(1000);
 }
 }
