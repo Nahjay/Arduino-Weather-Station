@@ -14,9 +14,31 @@ buttons.forEach(button => {
     button.addEventListener('click', () => {
         const endpoint = button.id;
         const resultBoxId = `${endpoint.replace(/\//g, '_')}_box`;
-        // fetchData(endpoint, resultBoxId);
+        fetchData(endpoint, resultBoxId);
         console.log(endpoint);
         console.log(resultBoxId);
     });
 });
 
+function fetchData(endpoint, resultBoxId) {
+    fetch(`https://localhost:8084${endpoint}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // assuming the response is in JSON format
+        })
+        .then(data => {
+            // Handle the retrieved data and update the respective result box
+            document.getElementById(resultBoxId).innerText = JSON.stringify(data);
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('There was a problem with the fetch operation:', error);
+        });
+} 
