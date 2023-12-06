@@ -1,4 +1,5 @@
 /* Create the API for my Arduino Weather Station that will store information at Various Endpoints */
+use actix_cors::Cors;
 use actix_files::Files;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use log::{debug, error, warn};
