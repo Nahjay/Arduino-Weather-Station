@@ -62,11 +62,11 @@ void loop()
 {
   // Begin Loop
 
-    // Check WiFi connection status
-  // if (WiFi.status() == WL_CONNECTED) {
-  //   Serial.println("Connected to the WiFi network");
-  // }
 
+  // Check if the WiFi is connected
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("Cpnnected to the WiFi network");
+  }
 
   // // Check if there is any data available in the Serial and store it in the buffer
   if (Serial.available() > 0) {
@@ -79,13 +79,7 @@ void loop()
       Serial.println(data);
 
       // Send the data to the server
-      http.begin(client, host);
-      http.addHeader("Content-Type", "application/json");
-      int httpCode = http.POST(data);
-      String payload = http.getString();
-      Serial.println(httpCode);
-      Serial.println(payload);
-      http.end();
+      
     }
 
     
