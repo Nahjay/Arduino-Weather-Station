@@ -49,10 +49,32 @@ void loop() {
       String data = Serial.readString();
     
 
-      // Check if the data is not empty and if
+      // Check if the data is not empty and if not, send it to the server
       if (data != "") {
         // Print the data
         Serial.println(data);
+
+        // Create a JSON document
+        DynamicJsonDocument doc(1024);
+
+        // Parse the JSON document
+        deserializeJson(doc, data);
+
+        // Convert the JSON document to a string
+        String output;
+        serializeJson(doc, output);
+
+        // Print the JSON document
+        Serial.println(output);
+
+        // Send the request to the server
+        http.begin(client, host);
+        http.addHeader("Content-Type", "application/json");
+
+        // Send the request and get the response
+        int httpResponseCode = http.POST(output);
+        Serial.print("HTTP Response code: ");
+        Serial.println(httpResponseCode);
       }
 
     }
