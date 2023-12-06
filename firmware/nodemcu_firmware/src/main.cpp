@@ -47,7 +47,6 @@ void loop() {
     // // Check if there is any data available in the Serial and store it in the buffer
     if (Serial.available() > 0) {
       String data = Serial.readString();
-    
 
       // Check if the data is not empty and if not, send it to the server
       if (data != "") {
@@ -55,7 +54,7 @@ void loop() {
         Serial.println(data);
 
         // Create a JSON document
-        DynamicJsonDocument doc(1024);
+        DynamicJsonDocument doc(10000);
 
         // Parse the JSON document
         deserializeJson(doc, data);
@@ -65,6 +64,7 @@ void loop() {
         serializeJson(doc, output);
 
         // Print the JSON document
+        Serial.println("JSON document:\n");
         Serial.println(output);
 
         // Send the request to the server
