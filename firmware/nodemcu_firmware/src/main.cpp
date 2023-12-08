@@ -54,10 +54,10 @@ void loop() {
         Serial.println(data);
 
         // Create a JSON document
-        DynamicJsonDocument doc(10000);
+        DynamicJsonDocument doc(1024);
 
-        // Parse the JSON document
-        deserializeJson(doc, data);
+        // Add the variable to the JSON document
+        doc["data"] = data;
 
         // Convert the JSON document to a string
         String output;
