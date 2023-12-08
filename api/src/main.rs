@@ -22,9 +22,7 @@ struct AppState {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct WeatherData {
-    pub temperature: f32,
-    pub humidity: f32,
-    // Add other fields as needed
+    data: String,
 }
 
 // Creates a handler function that responds if the endpoint is not found in the server
