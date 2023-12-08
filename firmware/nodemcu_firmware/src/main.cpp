@@ -10,7 +10,7 @@ using namespace std;
 
 const char *ssid = "Family bee";
 const char *password = "Kablitv22";
-const char *host = "http://localhost:8084/weather";
+const char *host = "http://localhost:8084/post_weather";
 HTTPClient http;
 WiFiClient client;
 
