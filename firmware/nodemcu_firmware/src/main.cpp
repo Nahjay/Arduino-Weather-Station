@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
+// #include <ESP8266HTTPClient.h>
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WiFi.h>
 #include <vector>
@@ -11,7 +12,6 @@ using namespace std;
 const char *ssid = "Family bee";
 const char *password = "Kablitv22";
 const char *host = "http://localhost:8084/post_weather";
-HTTPClient http;
 WiFiClient client;
 
 
@@ -19,6 +19,9 @@ void setup() {
   // put your setup code here, to run once:
   // Begin the Serial at 9600 Baud
   WiFi.mode(WIFI_STA);
+  WiFi.disconnect();
+
+  delay(100);
   WiFi.begin(ssid, password);
 
   Serial.begin(9600);
@@ -30,6 +33,20 @@ void setup() {
 
   Serial.println("Connected to ");
   Serial.println(WiFi.SSID());
+
+  // Delay for 1 sec
+  delay(1000);
+
+  IPAddress staticIP(192, 168, 0, 184); //ESP static ip
+  IPAddress gateway(192, 168, 0, 1);   //IP Address of your WiFi Router (Gateway)
+  IPAddress subnet(255, 255, 255, 0);  //Subnet mask
+
+  // Set your Static IP address
+  if (!WiFi.config(staticIP, gateway, subnet)) {
+    Serial.println("STA Failed to configure");
+  }
+
+  // Print ESP8266 Local IP Address
   Serial.print("IP address:\t");
   Serial.println(WiFi.localIP());
 }
@@ -53,6 +70,7 @@ void loop() {
         // Print the data
         Serial.println(data);
 
+        
         // Create a JSON document
         DynamicJsonDocument doc(1024);
 
@@ -65,16 +83,34 @@ void loop() {
 
         // Print the JSON document
         Serial.println("JSON document:\n");
-        Serial.println(output);
+        // Serial.println(output);
 
-        // Send the request to the server
+        String jsonData = "{\"data\":\"12/6 0:2:56\\r\\nLight: 65 lx\\r\\nTemperature: 33.00 °C\\r\\nHumidity: 41.00 %\\r\\nPressure = 75383.97 Pa\\r\\nAltitude: 2425.95 m\\r\\nTime: 2023/12/6 0:2:58\\r\\nLight: 64 lx\\r\\nTemperature: 33.00 °C\\r\\nHumidity: 41.00 %\\r\\nPressure = 75383.97 Pa\\r\\nAltitude: 2425.95 m\\r\\nTime: 2023/12/6 0:3:0\\r\\nLight: 65 lx\\r\\nTemperature: 33.00 °C\\r\\nHumidity: 41.00 %\\r\\nPressure = 75383.97 Pa\\r\\nAltitude: 2425.95 m\\r\\nTime: 2023/12/6 0:3:2\\r\\n\"}";
+
+
+        // Wrap the output in quotes
+
+        // Send the request
+        HTTPClient http;
+
+        // Begin the request
         http.begin(client, host);
+
         http.addHeader("Content-Type", "application/json");
 
-        // Send the request and get the response
-        int httpResponseCode = http.POST(output);
+        // Send the request
+        int httpResponseCode = http.POST(jsonData);
         Serial.print("HTTP Response code: ");
         Serial.println(httpResponseCode);
+
+        // Send another request after 60 seconds
+        delay(5000);
+        int httpResponseCode2 = http.POST(output);
+        Serial.print("HTTP Response code: ");
+        Serial.println(httpResponseCode2);
+
+        // Free resources       
+        http.end();
       }
 
     }
@@ -84,6 +120,6 @@ void loop() {
   }
     
 
-  delay(1000);
+  delay(5000);
 }
 
