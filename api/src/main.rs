@@ -162,12 +162,33 @@ async fn humidity(state: web::Data<Arc<AppState>>) -> impl Responder {
 }
 
 #[get("/weather/pressure")]
-async fn pressure() -> impl Responder {
-    let response = Response {
-        message: "Pressure endpoint".to_string(),
-    };
-    HttpResponse::Ok().json(response)
-}
+async fn pressure(state: web::Data<Arc<AppState>>) -> impl Responder {
+    let app_state = state.weather_data.lock().unwrap();
+    match &*app_state {
+        Some(data) => {
+            for line in data.data.lines() {
+                let parts: Vec<&str> = line.split(":").collect();
+                if parts.len() == 2 {
+                    let key = parts[0].trim();
+                    let value = parts[1].trim();
+                    if key == "Pressure" {
+                        // Respond with the pressure value
+                        return HttpResponse::Ok().json(Pressure {
+                            pressure: value.to_string(),
+                        });
+                    }
+                }
+            }
+
+            // If "Time" information is not found
+            HttpResponse::NotFound().json(Response {
+                message: "Pressure information not available".to_string(),
+            })
+        }
+        None => HttpResponse::NotFound().json(Response {
+            message: "Weather data not available".to_string(),
+        }),
+    }
 
 #[get("/weather/altitude")]
 async fn altitude() -> impl Responder {
