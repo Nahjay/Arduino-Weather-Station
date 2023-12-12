@@ -95,7 +95,6 @@ async fn weather(state: web::Data<Arc<AppState>>) -> impl Responder {
                     if pressure_parts.len() == 2 {
                         let pressure_key = pressure_parts[0];
                         let pressure_value = pressure_parts[1];
-                        println!("Key: {}, Value: {}", pressure_key, pressure_value);
                         formatted_data.push(format!("{}: {}", pressure_key, pressure_value))
                     }
                 }
@@ -179,19 +178,18 @@ async fn pressure(state: web::Data<Arc<AppState>>) -> impl Responder {
     match &*app_state {
         Some(data) => {
             for line in data.data.lines() {
-                let parts: Vec<&str> = line.split(":").collect();
-                if parts.len() == 2 {
-                    let key = parts[0].trim();
-                    let value = parts[1].trim();
-                    if key == "Pressure" {
+                if line.contains("Pressure") {
+                    let pressure_parts: Vec<&str> = line.split('=').map(str::trim).collect();
+                    if pressure_parts.len() == 2 {
+                        let pressure_value = pressure_parts[1];
+
                         // Respond with the pressure value
                         return HttpResponse::Ok().json(Pressure {
-                            pressure: value.to_string(),
+                            pressure: pressure_value.to_string(),
                         });
                     }
                 }
             }
-
             // If "Time" information is not found
             HttpResponse::NotFound().json(Response {
                 message: "Pressure information not available".to_string(),
