@@ -3,6 +3,7 @@ use actix_cors::Cors;
 use actix_files::Files;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use log::{debug, error, warn};
+use rusqlite::{Connection, Result};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use simplelog::{CombinedLogger, TermLogger, WriteLogger};
@@ -148,6 +149,18 @@ async fn post_weather(
     HttpResponse::Ok().json(Response {
         message: "Weather data stored successfully".to_string(),
     })
+}
+
+async fn initialize_database() -> Result<()> {
+    // Create the database and create a new database if it does not exist
+
+    let conn = Connection::open("weather_station.db")?;
+
+    // Read my init db file and execute the SQL statements
+    let init_db_file = std::fs::read_to_string("init_db.sql").expect("Unable to read file");
+    conn.execute_batch(&init_db_file)?;
+
+    Ok(())
 }
 
 #[actix_web::main]
