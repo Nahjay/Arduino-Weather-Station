@@ -9,7 +9,7 @@ use simplelog::{CombinedLogger, TermLogger, WriteLogger};
 use std::fs::File;
 use std::sync::{Arc, Mutex};
 
-// Create a struct to hold the response data
+// Create structs to hold the response data
 #[derive(Serialize)]
 pub struct Response {
     pub message: String,
@@ -131,7 +131,7 @@ async fn temperature(state: web::Data<Arc<AppState>>) -> impl Responder {
                 }
             }
 
-            // If "Time" information is not found
+            // If "Temperature" information is not found
             HttpResponse::NotFound().json(Response {
                 message: "Temperature information not available".to_string(),
             })
@@ -161,7 +161,7 @@ async fn humidity(state: web::Data<Arc<AppState>>) -> impl Responder {
                 }
             }
 
-            // If "Time" information is not found
+            // If "Humidity" information is not found
             HttpResponse::NotFound().json(Response {
                 message: "Humidity information not available".to_string(),
             })
@@ -190,7 +190,7 @@ async fn pressure(state: web::Data<Arc<AppState>>) -> impl Responder {
                     }
                 }
             }
-            // If "Time" information is not found
+            // If "Pressure" information is not found
             HttpResponse::NotFound().json(Response {
                 message: "Pressure information not available".to_string(),
             })
@@ -220,7 +220,7 @@ async fn altitude(state: web::Data<Arc<AppState>>) -> impl Responder {
                 }
             }
 
-            // If "Time" information is not found
+            // If "Altitude" information is not found
             HttpResponse::NotFound().json(Response {
                 message: "Altitude information not available".to_string(),
             })
@@ -250,7 +250,7 @@ async fn light(state: web::Data<Arc<AppState>>) -> impl Responder {
                 }
             }
 
-            // If "Time" information is not found
+            // If "Light" information is not found
             HttpResponse::NotFound().json(Response {
                 message: "Light information not available".to_string(),
             })
@@ -315,35 +315,12 @@ async fn post_weather(
         }
     };
 
-    // Insert data into the table (adjust the SQL statement according to your table structure)
+    // Insert data into the table
     let sql = "INSERT INTO weather_data (data) VALUES (?)";
     if let Err(err) = conn.execute(sql, params![data.0.data]) {
         error!("Failed to insert data into the database: {}", err);
         return HttpResponse::InternalServerError().finish();
     }
-
-    // // Parse the JSON data
-    // for line in data.0.data.lines() {
-    //     // Store in key-value pairs
-    //     if line.contains("Pressure") {
-    //         let pressure_parts: Vec<&str> = line.split('=').map(str::trim).collect();
-    //         if pressure_parts.len() == 2 {
-    //             let pressure_key = pressure_parts[0];
-    //             let pressure_value = pressure_parts[1];
-    //             println!("Key: {}, Value: {}", pressure_key, pressure_value);
-    //         }
-    //     }
-
-    //     let parts: Vec<&str> = line.splitn(2, ':').map(str::trim).collect();
-
-    //     if parts.len() == 2 {
-    //         let key = parts[0];
-    //         let value = parts[1];
-
-    //         // For other lines, print key and value
-    //         println!("Key: {}, Value: {}", key, value);
-    //     }
-    // }
 
     // Add a debug statement to check if the data is being stored
     debug!("Weather data stored: {:?}", data);
