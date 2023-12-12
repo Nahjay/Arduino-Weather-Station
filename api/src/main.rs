@@ -1,8 +1,10 @@
 /* Create the API for my Arduino Weather Station that will store information at Various Endpoints */
+use actix_cors::Cors;
 use actix_files::Files;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use log::{debug, error, warn};
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use simplelog::{CombinedLogger, TermLogger, WriteLogger};
 use std::fs::File;
 use std::sync::{Arc, Mutex};
@@ -20,9 +22,7 @@ struct AppState {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct WeatherData {
-    pub temperature: f32,
-    pub humidity: f32,
-    // Add other fields as needed
+    data: String,
 }
 
 // Creates a handler function that responds if the endpoint is not found in the server
@@ -123,7 +123,18 @@ async fn post_weather(
         message: "Weather data stored successfully".to_string(),
     })
 }
+// #[post("/post_weather")]
+// async fn post_weather(data: web::Json<Value>, state: web::Data<Arc<AppState>>) -> impl Responder {
+//     let mut app_state = state.weather_data.lock().unwrap();
+//     *app_state = Some(data.0.clone());
 
+//     // Add a debug statement to check if the data is being stored
+//     debug!("Weather data stored: {:?}", data);
+
+//     HttpResponse::Ok().json(Response {
+//         message: "Weather data stored successfully".to_string(),
+//     })
+// }
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     /* Instantiate Logger */
@@ -148,11 +159,15 @@ async fn main() -> std::io::Result<()> {
 
     // Create the Server and bind it to port 8084
     HttpServer::new(move || {
+        let cors = Cors::default()
+            .allow_any_origin()
+            .allow_any_method()
+            .allow_any_header();
+
         App::new()
-            // .route("/", web::get().to(HttpResponse::Ok))
+            .wrap(cors)
             .app_data(web::Data::new(app_state.clone()))
             .service(healthcheck)
-            // .service(index)
             .service(weather)
             .service(temperature)
             .service(humidity)
@@ -165,7 +180,7 @@ async fn main() -> std::io::Result<()> {
             // Serve static files from the static directory
             .service(Files::new("/", "../web_interface").index_file("static/index.html"))
     })
-    .bind(("127.0.0.1", 8084))?
+    .bind(("192.168.0.105", 8084))?
     .run()
     .await
 }

@@ -19,11 +19,9 @@ buttons.forEach(button => {
 });
 
 function fetchData(endpoint, resultBoxId) {
-    fetch(`https://localhost:8084${endpoint}`, {
+    fetch(`http://192.168.0.105:8084${endpoint}`, {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+
     })
         .then(response => {
             if (!response.ok) {

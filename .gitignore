@@ -12,3 +12,4 @@ venv/
 .vscode/ipch
 *.json
 target/
+*.log
