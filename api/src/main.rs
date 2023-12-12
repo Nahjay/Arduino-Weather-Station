@@ -19,6 +19,30 @@ pub struct Temperature {
     pub temperature: String,
 }
 
+#[derive(Serialize, Deserialize)]
+pub struct Humidity {
+    pub humidity: String,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct Pressure {
+    pub pressure: String,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct Altitude {
+    pub altitude: String,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct Light {
+    pub light: String,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct Time {
+    pub time: String,
+}
 #[derive(Default)]
 struct AppState {
     weather_data: Mutex<Option<WeatherData>>,
