@@ -324,28 +324,28 @@ async fn post_weather(
         return HttpResponse::InternalServerError().finish();
     }
 
-    // Parse the JSON data
-    for line in data.0.data.lines() {
-        // Store in key-value pairs
-        if line.contains("Pressure") {
-            let pressure_parts: Vec<&str> = line.split('=').map(str::trim).collect();
-            if pressure_parts.len() == 2 {
-                let pressure_key = pressure_parts[0];
-                let pressure_value = pressure_parts[1];
-                println!("Key: {}, Value: {}", pressure_key, pressure_value);
-            }
-        }
+    // // Parse the JSON data
+    // for line in data.0.data.lines() {
+    //     // Store in key-value pairs
+    //     if line.contains("Pressure") {
+    //         let pressure_parts: Vec<&str> = line.split('=').map(str::trim).collect();
+    //         if pressure_parts.len() == 2 {
+    //             let pressure_key = pressure_parts[0];
+    //             let pressure_value = pressure_parts[1];
+    //             println!("Key: {}, Value: {}", pressure_key, pressure_value);
+    //         }
+    //     }
 
-        let parts: Vec<&str> = line.splitn(2, ':').map(str::trim).collect();
+    //     let parts: Vec<&str> = line.splitn(2, ':').map(str::trim).collect();
 
-        if parts.len() == 2 {
-            let key = parts[0];
-            let value = parts[1];
+    //     if parts.len() == 2 {
+    //         let key = parts[0];
+    //         let value = parts[1];
 
-            // For other lines, print key and value
-            println!("Key: {}, Value: {}", key, value);
-        }
-    }
+    //         // For other lines, print key and value
+    //         println!("Key: {}, Value: {}", key, value);
+    //     }
+    // }
 
     // Add a debug statement to check if the data is being stored
     debug!("Weather data stored: {:?}", data);
@@ -361,7 +361,6 @@ fn initialize_database() -> Result<()> {
 
     // Read my init db file and execute the SQL statements
     let init_db_file = std::fs::read_to_string("../db/init_db.sql").expect("Unable to read file");
-    println!("init_db_file: {}", init_db_file);
     conn.execute_batch(&init_db_file)?;
 
     Ok(())
