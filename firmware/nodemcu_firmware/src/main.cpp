@@ -1,12 +1,7 @@
-#include <Arduino.h>
 #include <SoftwareSerial.h>
-// #include <ESP8266HTTPClient.h>
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WiFi.h>
-#include <vector>
 #include <ArduinoJson.h>
-
-using namespace std;
 
 
 const char *ssid = "Family bee_EXT";
@@ -16,32 +11,8 @@ WiFiClient client;
 
 
 void setup() {
-  // put your setup code here, to run once:
   // Begin the Serial at 9600 Baud
-
-  delay(10000);
-
   WiFi.mode(WIFI_STA);
-
-  // Start the WiFi scan
-  int numNetworks = WiFi.scanNetworks();
-
-  if (numNetworks == 0) {
-    Serial.println("No networks found");
-  } else {
-    Serial.print("Found ");
-    Serial.print(numNetworks);
-    Serial.println(" networks");
-
-    // Print the SSID and signal strength for each network
-    for (int i = 0; i < numNetworks; ++i) {
-      Serial.print("SSID: ");
-      Serial.print(WiFi.SSID(i));
-      Serial.print(" | Signal Strength: ");
-      Serial.print(WiFi.RSSI(i));
-      Serial.println(" dBm");
-    }
-  }
 
   delay(100);
   WiFi.begin(ssid, password);
@@ -82,7 +53,6 @@ void loop() {
   if (WiFi.status() == WL_CONNECTED) {
     Serial.println("Connected to the WiFi network");
   
-
     // // Check if there is any data available in the Serial and store it in the buffer
     if (Serial.available() > 0) {
       String data = Serial.readString();
@@ -127,26 +97,14 @@ void loop() {
         Serial.print("HTTP Response body: ");
         Serial.println(http.getString());
 
-        // Send another request after 60 seconds
-        delay(5000);
-        int httpResponseCode2 = http.POST(output);
-        Serial.print("HTTP Response code: ");
-        Serial.println(httpResponseCode2);
-        Serial.print("HTTP Response body: ");
-        Serial.println(http.getString());
-
-
         // Free resources       
         http.end();
       }
-
     }
   }
   else {
     Serial.println("Error in WiFi connection");
-  }
-    
-
+  }    
   delay(5000);
 }
 
