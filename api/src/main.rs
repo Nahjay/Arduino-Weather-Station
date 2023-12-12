@@ -269,7 +269,7 @@ async fn time(state: web::Data<Arc<AppState>>) -> impl Responder {
     match &*app_state {
         Some(data) => {
             for line in data.data.lines() {
-                let parts: Vec<&str> = line.split(":").collect();
+                let parts: Vec<&str> = line.splitn(2, ':').map(str::trim).collect();
                 if parts.len() == 2 {
                     let key = parts[0].trim();
                     let value = parts[1].trim();
