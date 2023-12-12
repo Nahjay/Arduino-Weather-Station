@@ -189,6 +189,7 @@ async fn pressure(state: web::Data<Arc<AppState>>) -> impl Responder {
             message: "Weather data not available".to_string(),
         }),
     }
+}
 
 #[get("/weather/altitude")]
 async fn altitude(state: web::Data<Arc<AppState>>) -> impl Responder {
@@ -218,7 +219,6 @@ async fn altitude(state: web::Data<Arc<AppState>>) -> impl Responder {
             message: "Weather data not available".to_string(),
         }),
     }
-    
 }
 
 #[get("/weather/light")]
@@ -249,6 +249,7 @@ async fn light(state: web::Data<Arc<AppState>>) -> impl Responder {
             message: "Weather data not available".to_string(),
         }),
     }
+}
 
 #[get("/weather/time")]
 async fn time(state: web::Data<Arc<AppState>>) -> impl Responder {
