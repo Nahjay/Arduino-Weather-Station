@@ -2,10 +2,9 @@
 use actix_cors::Cors;
 use actix_files::Files;
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
-use log::{debug, error, warn};
-use rusqlite::{Connection, Result};
+use log::{debug, error};
+use rusqlite::{params, Connection, Result};
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
 use simplelog::{CombinedLogger, TermLogger, WriteLogger};
 use std::fs::File;
 use std::sync::{Arc, Mutex};
@@ -130,6 +129,29 @@ async fn post_weather(
     let mut app_state = state.weather_data.lock().unwrap();
     *app_state = Some(data.0.clone());
 
+    // Initialize the database if not already done
+    if let Err(err) = initialize_database() {
+        error!("Failed to initialize the database: {}", err);
+        return HttpResponse::InternalServerError().finish();
+    }
+
+    // Establish a connection to the SQLite database
+    let conn = Connection::open("../db/weather_data.db");
+    let conn = match conn {
+        Ok(conn) => conn,
+        Err(err) => {
+            error!("Failed to open database connection: {}", err);
+            return HttpResponse::InternalServerError().finish();
+        }
+    };
+
+    // Insert data into the table (adjust the SQL statement according to your table structure)
+    let sql = "INSERT INTO your_table_name (data) VALUES (?)";
+    if let Err(err) = conn.execute(sql, params![data.0.data]) {
+        error!("Failed to insert data into the database: {}", err);
+        return HttpResponse::InternalServerError().finish();
+    }
+
     // Parse the JSON data
     for line in data.0.data.lines() {
         // Store in key-value pairs
@@ -151,13 +173,13 @@ async fn post_weather(
     })
 }
 
-async fn initialize_database() -> Result<()> {
+fn initialize_database() -> Result<()> {
     // Create the database and create a new database if it does not exist
-
-    let conn = Connection::open("weather_station.db")?;
+    let conn = Connection::open("../db/weather_station.db")?;
 
     // Read my init db file and execute the SQL statements
-    let init_db_file = std::fs::read_to_string("init_db.sql").expect("Unable to read file");
+    let init_db_file = std::fs::read_to_string("../db/init_db.sql").expect("Unable to read file");
+    println!("init_db_file: {}", init_db_file);
     conn.execute_batch(&init_db_file)?;
 
     Ok(())
