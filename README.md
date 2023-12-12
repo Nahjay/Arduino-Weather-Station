@@ -56,4 +56,11 @@ This is a solo project, and contributions are not currently accepted. However, y
 If you have any questions or inquiries, feel free to reach out to me at nahjaybattieste@gmail.com (mailto:nahjaybattieste@gmail.com).
 
 ## Images
+### The Weather Station
+![weather_station](https://github.com/Nahjay/Arduino-Weather-Station/assets/127258036/ed12a434-13eb-46fc-9ddb-8adc222353ad)
+
+### Web Interface
+![Screenshot from 2023-12-12 18-39-26](https://github.com/Nahjay/Arduino-Weather-Station/assets/127258036/4a1c1aa5-ed00-4e42-88d7-cf763a353dc4)
+
+
 
