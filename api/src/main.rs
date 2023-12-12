@@ -83,14 +83,26 @@ async fn weather(state: web::Data<Arc<AppState>>) -> impl Responder {
     match &*app_state {
         Some(data) => {
             let mut formatted_data = Vec::new();
+
             for line in data.data.lines() {
-                let parts: Vec<&str> = line.split(":").collect();
+                let parts: Vec<&str> = line.splitn(2, ':').map(str::trim).collect();
                 if parts.len() == 2 {
                     let key = parts[0].trim();
                     let value = parts[1].trim();
                     formatted_data.push(format!("{}: {}", key, value));
+                } else if line.contains("Pressure") {
+                    let pressure_parts: Vec<&str> = line.split('=').map(str::trim).collect();
+                    if pressure_parts.len() == 2 {
+                        let pressure_key = pressure_parts[0];
+                        let pressure_value = pressure_parts[1];
+                        println!("Key: {}, Value: {}", pressure_key, pressure_value);
+                        formatted_data.push(format!("{}: {}", pressure_key, pressure_value))
+                    }
                 }
             }
+
+            // Remove the last 12 elements from the vector
+            formatted_data.truncate(formatted_data.len() - 12);
 
             // Respond with the formatted data
             HttpResponse::Ok().json(formatted_data)
@@ -315,12 +327,22 @@ async fn post_weather(
     // Parse the JSON data
     for line in data.0.data.lines() {
         // Store in key-value pairs
-        let parts: Vec<&str> = line.split(":").collect();
-        if parts.len() == 2 {
-            let key = parts[0].trim();
-            let value = parts[1].trim();
+        if line.contains("Pressure") {
+            let pressure_parts: Vec<&str> = line.split('=').map(str::trim).collect();
+            if pressure_parts.len() == 2 {
+                let pressure_key = pressure_parts[0];
+                let pressure_value = pressure_parts[1];
+                println!("Key: {}, Value: {}", pressure_key, pressure_value);
+            }
+        }
 
-            // Now you can do something with the key and value
+        let parts: Vec<&str> = line.splitn(2, ':').map(str::trim).collect();
+
+        if parts.len() == 2 {
+            let key = parts[0];
+            let value = parts[1];
+
+            // For other lines, print key and value
             println!("Key: {}, Value: {}", key, value);
         }
     }
