@@ -116,6 +116,20 @@ async fn post_weather(
     let mut app_state = state.weather_data.lock().unwrap();
     *app_state = Some(data.0.clone());
 
+    // Parse the JSON data
+    for line in data.0.data.lines() {
+        // Here you can further parse each line and store it in the database
+        // For example, you can split each line into key-value pairs
+        let parts: Vec<&str> = line.split(":").collect();
+        if parts.len() == 2 {
+            let key = parts[0].trim();
+            let value = parts[1].trim();
+
+            // Now you can do something with the key and value
+            println!("Key: {}, Value: {}", key, value);
+        }
+    }
+
     // Add a debug statement to check if the data is being stored
     debug!("Weather data stored: {:?}", data);
 
