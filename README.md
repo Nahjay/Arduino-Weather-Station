@@ -37,12 +37,6 @@ The software components and tools used in this project include:
 - Git for version control.
 
 
-## Usage
-
-1. Power up the Arduino Weather Station.
-2. Access the web interface to view real-time weather data. Open a web browser and navigate to `http://localhost:your_port` (replace `your_port` with the port number specified in your configuration).
-3. The LCD display will also provide on-site weather information.
-
 ## Contributing
 
 This is a solo project, and contributions are not currently accepted. However, you are welcome to fork the repository and use it as a starting point for your own projects.
