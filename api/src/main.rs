@@ -251,11 +251,33 @@ async fn light(state: web::Data<Arc<AppState>>) -> impl Responder {
     }
 
 #[get("/weather/time")]
-async fn time() -> impl Responder {
-    let response = Response {
-        message: "Time endpoint".to_string(),
-    };
-    HttpResponse::Ok().json(response)
+async fn time(state: web::Data<Arc<AppState>>) -> impl Responder {
+    let app_state = state.weather_data.lock().unwrap();
+    match &*app_state {
+        Some(data) => {
+            for line in data.data.lines() {
+                let parts: Vec<&str> = line.split(":").collect();
+                if parts.len() == 2 {
+                    let key = parts[0].trim();
+                    let value = parts[1].trim();
+                    if key == "Time" {
+                        // Respond with the time value
+                        return HttpResponse::Ok().json(Time {
+                            time: value.to_string(),
+                        });
+                    }
+                }
+            }
+
+            // If "Time" information is not found
+            HttpResponse::NotFound().json(Response {
+                message: "Time information not available".to_string(),
+            })
+        }
+        None => HttpResponse::NotFound().json(Response {
+            message: "Weather data not available".to_string(),
+        }),
+    }
 }
 
 #[post("/post_weather")]
