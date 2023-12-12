@@ -123,18 +123,7 @@ async fn post_weather(
         message: "Weather data stored successfully".to_string(),
     })
 }
-// #[post("/post_weather")]
-// async fn post_weather(data: web::Json<Value>, state: web::Data<Arc<AppState>>) -> impl Responder {
-//     let mut app_state = state.weather_data.lock().unwrap();
-//     *app_state = Some(data.0.clone());
 
-//     // Add a debug statement to check if the data is being stored
-//     debug!("Weather data stored: {:?}", data);
-
-//     HttpResponse::Ok().json(Response {
-//         message: "Weather data stored successfully".to_string(),
-//     })
-// }
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     /* Instantiate Logger */
