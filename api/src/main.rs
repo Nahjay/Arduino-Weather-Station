@@ -222,12 +222,33 @@ async fn altitude(state: web::Data<Arc<AppState>>) -> impl Responder {
 }
 
 #[get("/weather/light")]
-async fn light() -> impl Responder {
-    let response = Response {
-        message: "Light endpoint".to_string(),
-    };
-    HttpResponse::Ok().json(response)
-}
+async fn light(state: web::Data<Arc<AppState>>) -> impl Responder {
+    let app_state = state.weather_data.lock().unwrap();
+    match &*app_state {
+        Some(data) => {
+            for line in data.data.lines() {
+                let parts: Vec<&str> = line.split(":").collect();
+                if parts.len() == 2 {
+                    let key = parts[0].trim();
+                    let value = parts[1].trim();
+                    if key == "Light" {
+                        // Respond with the light value
+                        return HttpResponse::Ok().json(Light {
+                            light: value.to_string(),
+                        });
+                    }
+                }
+            }
+
+            // If "Time" information is not found
+            HttpResponse::NotFound().json(Response {
+                message: "Light information not available".to_string(),
+            })
+        }
+        None => HttpResponse::NotFound().json(Response {
+            message: "Weather data not available".to_string(),
+        }),
+    }
 
 #[get("/weather/time")]
 async fn time() -> impl Responder {
