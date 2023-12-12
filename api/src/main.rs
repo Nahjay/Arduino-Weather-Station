@@ -14,6 +14,10 @@ use std::sync::{Arc, Mutex};
 pub struct Response {
     pub message: String,
 }
+#[derive(Serialize, Deserialize)]
+pub struct Temperature {
+    pub temperature: String,
+}
 
 #[derive(Default)]
 struct AppState {
@@ -74,11 +78,33 @@ async fn weather(state: web::Data<Arc<AppState>>) -> impl Responder {
 }
 
 #[get("/weather/temperature")]
-async fn temperature() -> impl Responder {
-    let response = Response {
-        message: "Temperature endpoint".to_string(),
-    };
-    HttpResponse::Ok().json(response)
+async fn temperature(state: web::Data<Arc<AppState>>) -> impl Responder {
+    let app_state = state.weather_data.lock().unwrap();
+    match &*app_state {
+        Some(data) => {
+            for line in data.data.lines() {
+                let parts: Vec<&str> = line.split(":").collect();
+                if parts.len() == 2 {
+                    let key = parts[0].trim();
+                    let value = parts[1].trim();
+                    if key == "Temperature" {
+                        // Respond with the temperature value
+                        return HttpResponse::Ok().json(Temperature {
+                            temperature: value.to_string(),
+                        });
+                    }
+                }
+            }
+
+            // If "Time" information is not found
+            HttpResponse::NotFound().json(Response {
+                message: "Temperature information not available".to_string(),
+            })
+        }
+        None => HttpResponse::NotFound().json(Response {
+            message: "Weather data not available".to_string(),
+        }),
+    }
 }
 
 #[get("/weather/humidity")]
