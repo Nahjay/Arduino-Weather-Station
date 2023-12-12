@@ -73,6 +73,8 @@ void loop() {
         String output;
         serializeJson(doc, output);
 
+        Serial.println(output);
+
         // Print the JSON document
         Serial.println("JSON document:\n");
         // Serial.println(output);
