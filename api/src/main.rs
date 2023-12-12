@@ -146,7 +146,7 @@ async fn post_weather(
     };
 
     // Insert data into the table (adjust the SQL statement according to your table structure)
-    let sql = "INSERT INTO your_table_name (data) VALUES (?)";
+    let sql = "INSERT INTO weather_data (data) VALUES (?)";
     if let Err(err) = conn.execute(sql, params![data.0.data]) {
         error!("Failed to insert data into the database: {}", err);
         return HttpResponse::InternalServerError().finish();
@@ -175,7 +175,7 @@ async fn post_weather(
 
 fn initialize_database() -> Result<()> {
     // Create the database and create a new database if it does not exist
-    let conn = Connection::open("../db/weather_station.db")?;
+    let conn = Connection::open("../db/weather_data.db")?;
 
     // Read my init db file and execute the SQL statements
     let init_db_file = std::fs::read_to_string("../db/init_db.sql").expect("Unable to read file");
