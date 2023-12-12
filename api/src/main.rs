@@ -180,7 +180,7 @@ async fn main() -> std::io::Result<()> {
             // Serve static files from the static directory
             .service(Files::new("/", "../web_interface").index_file("static/index.html"))
     })
-    .bind(("127.0.0.1", 8084))?
+    .bind(("192.168.0.105", 8084))?
     .run()
     .await
 }

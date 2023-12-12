@@ -9,17 +9,39 @@
 using namespace std;
 
 
-const char *ssid = "Family bee";
+const char *ssid = "Family bee_EXT";
 const char *password = "Kablitv22";
-const char *host = "http://localhost:8084/post_weather";
+const char *host = "http://192.168.0.105:8084/post_weather";
 WiFiClient client;
 
 
 void setup() {
   // put your setup code here, to run once:
   // Begin the Serial at 9600 Baud
+
+  delay(10000);
+
   WiFi.mode(WIFI_STA);
-  WiFi.disconnect();
+
+  // Start the WiFi scan
+  int numNetworks = WiFi.scanNetworks();
+
+  if (numNetworks == 0) {
+    Serial.println("No networks found");
+  } else {
+    Serial.print("Found ");
+    Serial.print(numNetworks);
+    Serial.println(" networks");
+
+    // Print the SSID and signal strength for each network
+    for (int i = 0; i < numNetworks; ++i) {
+      Serial.print("SSID: ");
+      Serial.print(WiFi.SSID(i));
+      Serial.print(" | Signal Strength: ");
+      Serial.print(WiFi.RSSI(i));
+      Serial.println(" dBm");
+    }
+  }
 
   delay(100);
   WiFi.begin(ssid, password);
@@ -102,12 +124,17 @@ void loop() {
         int httpResponseCode = http.POST(jsonData);
         Serial.print("HTTP Response code: ");
         Serial.println(httpResponseCode);
+        Serial.print("HTTP Response body: ");
+        Serial.println(http.getString());
 
         // Send another request after 60 seconds
         delay(5000);
         int httpResponseCode2 = http.POST(output);
         Serial.print("HTTP Response code: ");
         Serial.println(httpResponseCode2);
+        Serial.print("HTTP Response body: ");
+        Serial.println(http.getString());
+
 
         // Free resources       
         http.end();
