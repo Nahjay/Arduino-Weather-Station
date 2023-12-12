@@ -61,7 +61,6 @@ void loop() {
       if (data != "") {
         // Print the data
         Serial.println(data);
-
         
         // Create a JSON document
         DynamicJsonDocument doc(1024);
@@ -72,17 +71,11 @@ void loop() {
         // Convert the JSON document to a string
         String output;
         serializeJson(doc, output);
-
         Serial.println(output);
 
         // Print the JSON document
         Serial.println("JSON document:\n");
-        // Serial.println(output);
-
-        String jsonData = "{\"data\":\"12/6 0:2:56\\r\\nLight: 65 lx\\r\\nTemperature: 33.00 °C\\r\\nHumidity: 41.00 %\\r\\nPressure = 75383.97 Pa\\r\\nAltitude: 2425.95 m\\r\\nTime: 2023/12/6 0:2:58\\r\\nLight: 64 lx\\r\\nTemperature: 33.00 °C\\r\\nHumidity: 41.00 %\\r\\nPressure = 75383.97 Pa\\r\\nAltitude: 2425.95 m\\r\\nTime: 2023/12/6 0:3:0\\r\\nLight: 65 lx\\r\\nTemperature: 33.00 °C\\r\\nHumidity: 41.00 %\\r\\nPressure = 75383.97 Pa\\r\\nAltitude: 2425.95 m\\r\\nTime: 2023/12/6 0:3:2\\r\\n\"}";
-
-
-        // Wrap the output in quotes
+        Serial.println(output);
 
         // Send the request
         HTTPClient http;
@@ -93,7 +86,7 @@ void loop() {
         http.addHeader("Content-Type", "application/json");
 
         // Send the request
-        int httpResponseCode = http.POST(jsonData);
+        int httpResponseCode = http.POST(output);
         Serial.print("HTTP Response code: ");
         Serial.println(httpResponseCode);
         Serial.print("HTTP Response body: ");
