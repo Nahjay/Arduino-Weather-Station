@@ -53,7 +53,20 @@ async fn index() -> impl Responder {
 async fn weather(state: web::Data<Arc<AppState>>) -> impl Responder {
     let app_state = state.weather_data.lock().unwrap();
     match &*app_state {
-        Some(data) => HttpResponse::Ok().json(data),
+        Some(data) => {
+            let mut formatted_data = Vec::new();
+            for line in data.data.lines() {
+                let parts: Vec<&str> = line.split(":").collect();
+                if parts.len() == 2 {
+                    let key = parts[0].trim();
+                    let value = parts[1].trim();
+                    formatted_data.push(format!("{}: {}", key, value));
+                }
+            }
+
+            // Respond with the formatted data
+            HttpResponse::Ok().json(formatted_data)
+        }
         None => HttpResponse::NotFound().json(Response {
             message: "Weather data not available".to_string(),
         }),
@@ -118,8 +131,7 @@ async fn post_weather(
 
     // Parse the JSON data
     for line in data.0.data.lines() {
-        // Here you can further parse each line and store it in the database
-        // For example, you can split each line into key-value pairs
+        // Store in key-value pairs
         let parts: Vec<&str> = line.split(":").collect();
         if parts.len() == 2 {
             let key = parts[0].trim();
